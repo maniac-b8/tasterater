@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from .yelp_api import search_businesses, get_business_details
-from .models import Restaurant, Review
+from .models import Restaurant, Favorite, Review
 from django.contrib.auth import login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -15,6 +15,30 @@ def home(request):
     return render (request, 'home.html', {'results': results['businesses']})
   return render(request, 'home.html')
 
+@login_required
+def add_favorite(request, yelp_id):
+  restaurant = Restaurant.objects.filter(yelp_id=yelp_id).first()
+  if not restaurant:
+    business = get_business_details(yelp_id)
+    if business and 'name' in business and 'location' in business and 'rating' in business:
+      restaurant = Restaurant.objects.create(
+        yelp_id=yelp_id,
+        name=business['name'],
+        location=business['location']['address1'],
+        rating=business['rating']
+      )
+    else:
+      return render(request, 'home.html', {'error_message': 'Failed to retrieve restaurant details from Yelp.'})
+  Favorite.objects.get_or_create(user=request.user, restaurant=restaurant)
+  return redirect('home')
+  
+@login_required
+def remove_favorite(request, yelp_id):
+  restaurant = get_object_or_404(Restaurant, yelp_id=yelp_id)
+  favorite = get_object_or_404(Favorite, user=request.user, restaurant=restaurant)
+  favorite.delete()
+  return redirect('home')
+  
 @login_required
 def restaurant_detail(request, yelp_id):
     try:
@@ -58,13 +82,13 @@ def add_review(request, yelp_id):
 
 @login_required
 def edit_review(request, review_id):
-  review = get_object_or_404(Review, id=review_id)
-  if request.method == 'POST':
-    review.text = request.POST['text']
-    request.rating = request.POST['rating']
-    review.save()
-    return redirect('home')
-  return render(request, 'edit_review.html', {'review': review})  
+    review = get_object_or_404(Review, id=review_id)
+    if request.method == 'POST':
+        review.text = request.POST['text']
+        review.rating = request.POST['rating']
+        review.save()
+        return redirect('home')
+    return render(request, 'edit_review.html', {'review': review})  
 
 @login_required
 def delete_review(request, review_id):
