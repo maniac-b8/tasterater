@@ -2,7 +2,7 @@
 {% block content %}
 
     <title>Add Review</title>
-    <body>
+    <div class="add-review"></div>
         <h1>Add review for {{ resturant.name }}</h1>
         <form method="post">
             {% csrf_token %}
@@ -12,5 +12,5 @@
             <input type="number" id="rating" name="rating" min="1" max="5" required>
             <button type="submit">Submit</button>
         </form>
-    </body>
+    </div>
     {% endblock %}

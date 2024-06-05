@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="restaurant-detail">
+    <h1>{{ restaurant.name }}</h1>
+    <p>Location: {{ restaurant.location }}</p>
+    <p>Rating: {{ restaurant.rating }}</p>
+
+    <div class="reviews">
+        <h2>Reviews</h2>
+        {% for review in reviews %}
+            <div class="review">
+                <p class="user">{{ review.user.username }}</p>
+                <p class="text">{{ review.text }}</p>
+                <p class="rating">Rating: {{ review.rating }}</p>
+            </div>
+        {% empty %}
+            <p>No reviews yet.</p>
+        {% endfor %}
+    </div>
+
+    <div class="add-review-button">
+        <a href="{% url 'add_review' restaurant.yelp_id %}">Add a Review</a>
+    </div>
+
+    <div class="back-button">
+        <a href="{% url 'home' %}">Back to Home</a>
+    </div>
+</div>
+
+{% endblock %}
