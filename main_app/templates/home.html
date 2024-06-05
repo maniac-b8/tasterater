@@ -1,26 +1,41 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <h1>Find Food Near You</h1>
-    <form method="get">
-        <label for="term">Search Term:</label>
-        <input type="text" id="term" name="term" required>
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location" required>
-        <button type="submit">Search</button>
-    </form>
+<form method="get">
+  <label for="term">Search Term:</label>
+  <input type="text" id="term" name="term" required />
+  <label for="location">Location:</label>
+  <input type="text" id="location" name="location" required />
+  <button type="submit">Search</button>
+</form>
 
-
-    {% if results %}
-        <h2>Results:</h2>
-        <ul>
-            {% for business in results %}
-                <li>
-                    <h3>{{ business.name }}</h3>
-                    <p>Rating: {{ business.rating }}</p>
-                    <p>Address: {{ business.location.address1 }}</p>
-                </li>
-            {% endfor %}
-        </ul>
+{% if results %}
+<h2>Results:</h2>
+<ul>
+  {% for business in results %}
+  <li>
+    <h3>{{ business.name }}</h3>
+    <p>Rating: {{ business.rating }}</p>
+    <p>Address: {{ business.location.address1 }}</p>
+    {% if user.is_authenticated %}
+    <a href="{% url 'add_review' business.id %}">Add Review</a>
     {% endif %}
-{% endblock %}
+  </li>
+  {% endfor %}
+  {% endif %}
+</ul>
+{% if user.is_authenticated %}
+
+<h2>Your Reviews</h2>
+<ul>
+  {% for review in user.review_set.all %}
+  <li>
+    <h3>{{ review.restaurant.name }}</h3>
+    <p>{{ review.text }}</p>
+    <p>Rating: {{ review.rating }}</p>
+    <a href="{% url 'edit_review' review.id %}">Edit Review</a>
+    <a href="{% url 'delete_review' review.id %}">Delete Review</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}  {% endblock %}
