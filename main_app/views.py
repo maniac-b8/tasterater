@@ -16,6 +16,26 @@ def home(request):
   return render(request, 'home.html')
 
 @login_required
+def restaurant_detail(request, yelp_id):
+    try:
+        # Try to get the restaurant from the database
+        restaurant = Restaurant.objects.get(yelp_id=yelp_id)
+    except Restaurant.DoesNotExist:
+        business = get_business_details(yelp_id)
+        if business and 'name' in business and 'location' in business and 'rating' in business:
+            restaurant = Restaurant.objects.create(
+                yelp_id=yelp_id,
+                name=business['name'],
+                location=business['location']['address1'],
+                rating=business['rating']
+            )
+        else:
+            return render(request, 'home.html', {'error_message': 'Failed to retrieve restaurant details from Yelp.'})
+    reviews = Review.objects.filter(restaurant=restaurant)
+    
+    return render(request, 'restaurant_detail.html', {'restaurant': restaurant, 'reviews': reviews})
+
+@login_required
 def add_review(request, yelp_id):
     restaurant = Restaurant.objects.filter(yelp_id=yelp_id).first()
     if not restaurant:

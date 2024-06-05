@@ -14,7 +14,7 @@
 <ul>
   {% for business in results %}
   <li>
-    <h3>{{ business.name }}</h3>
+    <h3><a href="{% url 'restaurant_detail' yelp_id=business.id %}">{{ business.name }}</a></h3>
     <p>Rating: {{ business.rating }}</p>
     <p>Address: {{ business.location.address1 }}</p>
     {% if user.is_authenticated %}
