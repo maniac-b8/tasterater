@@ -1,6 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Home page</h1>
+<h1>Find Food Near You</h1>
+    <form method="get">
+        <label for="term">Search Term:</label>
+        <input type="text" id="term" name="term" required>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
+        <button type="submit">Search</button>
+    </form>
 
+
+    {% if results %}
+        <h2>Results:</h2>
+        <ul>
+            {% for business in results %}
+                <li>
+                    <h3>{{ business.name }}</h3>
+                    <p>Rating: {{ business.rating }}</p>
+                    <p>Address: {{ business.location.address1 }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}
