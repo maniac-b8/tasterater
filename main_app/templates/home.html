@@ -18,6 +18,7 @@
     <p>Rating: {{ business.rating }}</p>
     <p>Address: {{ business.location.address1 }}</p>
     {% if user.is_authenticated %}
+    <a href="{% url 'add_favorite' business.id %}">Favorite</a>
     <a href="{% url 'add_review' business.id %}">Add Review</a>
     {% endif %}
   </li>
@@ -25,6 +26,15 @@
   {% endif %}
 </ul>
 {% if user.is_authenticated %}
+ <h2>Your Favorites</h2>
+ <ul>
+    {% for favorite in user.favorite_set.all %}
+     <li>
+        <h3>{{ favorite.restaurant.name }}</h3>
+        <a href="{% url 'remove_favorite' favorite.restaurant.yelp_id %}">Remove Favorite</a>
+     </li>
+     {% endfor %}
+ </ul>
 
 <h2>Your Reviews</h2>
 <ul>

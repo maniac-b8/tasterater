@@ -10,7 +10,13 @@ class Restaurant(models.Model):
     
     def __str__(self):
       return self.name    
- 
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    
+    class Meta:
+        unique_together = ('user', 'restaurant') 
   
 class Review(models.Model):
    user = models.ForeignKey(User, on_delete=models.CASCADE)
