@@ -16,7 +16,10 @@
   <li>
     <h3><a href="{% url 'restaurant_detail' yelp_id=business.id %}">{{ business.name }}</a></h3>
     <p>Rating: {{ business.rating }}</p>
-    <p>Address: {{ business.location.address1 }}</p>
+    <p>Address:  {{ business.location.address1 }} <a href="https://www.google.com/maps/dir/?api=1&destination={{ business.location.address1|urlencode }}" target="_blank">Click here for directions</a></p>
+    {% if business.image_url %}
+    <img src="{{ business.image_url }}" alt="Image of {{ business.name }}" style="width:200px;height:auto;">
+    {% endif %}
     {% if user.is_authenticated %}
     <a href="{% url 'add_favorite' business.id %}">Favorite</a>
     &nbsp;&nbsp;&nbsp;&nbsp;
