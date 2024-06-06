@@ -3,14 +3,28 @@
 <div class="restaurant-detail">
     <h1>{{ restaurant.name }}</h1>
     <p>Address:  {{ restaurant.location }} <a href="https://www.google.com/maps/dir/?api=1&destination={{ restaurant.location|urlencode }}" target="_blank">Click here for directions</a></p>
-    <p>Rating: {{ restaurant.rating }}</p>
+    <p>Rating: 
+        <div class="star-rating">
+            {% for i in range %}
+                <i class="fas fa-star{% if restaurant.rating < i %}-o{% endif %}"-></i>
+            {% endfor %}
+            ({{restaurant.rating}})
+        </div>
+    </p>
     <div class="reviews">
         <h2>Reviews</h2>
         {% for review in reviews %}
             <div class="review">
                 <p class="user">{{ review.user.username }}</p>
                 <p class="text">{{ review.text }}</p>
-                <p class="rating">Rating: {{ review.rating }}</p>
+                <p class="rating">Rating: 
+                    <div class="star-rating">
+                        {% for i in range %}
+                            <i class="fas fa-star{% if review.rating < i %}-o{% endif %}"></i>
+                        {% endfor %}
+                        {{ review.rating}}
+                    </div>
+                </p>
             </div>
         {% empty %}
             <p>No reviews yet.</p>

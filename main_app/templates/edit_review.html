@@ -9,7 +9,15 @@
             <label for="text">Review:</label>
             <textarea id="text" name="text" required>{{ review.text }}</textarea>
             <label for="rating">Rating:</label>
-            <input type="number" id="rating" name="rating" min="1" max="5" value="{{ review.rating }}" required>
+            <div class="star-rating">
+                {% for i in range %}
+                <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}"{% if review.rating == i %}checked{% endif %}>
+                <label for="star{{ i }}" title="{{ i }} stars">
+                    <i class="fas fa-star"></i>
+                </label>
+                {% endfor %}
+            </div>
+            <!-- <input type="number" id="rating" name="rating" min="1" max="5" value="{{ review.rating }}" required> -->
             <button type="submit">Submit</button>
         </form>
     </div>
