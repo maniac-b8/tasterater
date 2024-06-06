@@ -1,5 +1,5 @@
-{% extends 'base.html' %} {% block content %}
-
+{% extends 'base.html' %} 
+{% block content %}
 <h1>Find Food Near You</h1>
 <form method="get">
   <label for="term">Search Term:</label>
@@ -11,31 +11,42 @@
 
 {% if results %}
 <h2>Results:</h2>
-<ul>
+<ul class="restaurant-list">
   {% for business in results %}
   <li>
-    <h3><a href="{% url 'restaurant_detail' yelp_id=business.id %}">{{ business.name }}</a></h3>
-    <p>Rating: {{ business.rating }}</p>
-    <p>Address:  {{ business.location.address1 }} <a href="https://www.google.com/maps/dir/?api=1&destination={{ business.location.address1|urlencode }}" target="_blank">Click here for directions</a></p>
-    {% if business.image_url %}
-    <img src="{{ business.image_url }}" alt="Image of {{ business.name }}" style="width:200px;height:auto;">
-    {% endif %}
-    {% if user.is_authenticated %}
-    <a href="{% url 'add_favorite' business.id %}">Favorite</a>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="{% url 'add_review' business.id %}">Add Review</a>
-    {% endif %}
+    <div class="restaurant-details">
+      <h3><a href="{% url 'restaurant_detail' yelp_id=business.id %}">{{ business.name }}</a></h3>
+      <p>Rating: {{ business.rating }}</p>
+      <p>Address:  {{ business.location.address1 }} <a href="https://www.google.com/maps/dir/?api=1&destination={{ business.location.address1|urlencode }}" target="_blank">Click here for directions</a></p>
+      <div class="restaurant-info">
+        <div class="restaurant-image">
+          {% if business.image_url %}
+          <img src="{{ business.image_url }}" alt="Image of {{ business.name }}">
+          {% endif %}
+        </div>
+        <div class="restaurant-buttons">
+          {% if user.is_authenticated %}
+          <a href="{% url 'add_favorite' business.id %}" class="button">Favorite</a>
+          <a href="{% url 'add_review' business.id %}" class="button">Add Review</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
   </li>
   {% endfor %}
-  {% endif %}
 </ul>
+{% endif %}
+
 {% if user.is_authenticated %}
  <h2>Your Favorites</h2>
  <ul>
     {% for favorite in user.favorite_set.all %}
      <li>
-        <h3>{{ favorite.restaurant.name }}</h3>
-        <a href="{% url 'remove_favorite' favorite.restaurant.yelp_id %}">Remove Favorite</a>
+        <h3><a href="{% url 'restaurant_detail' yelp_id=favorite.restaurant.yelp_id %}">{{ favorite.restaurant.name }}</a></h3>
+        <form method="post" action="{% url 'remove_favorite' favorite.restaurant.yelp_id %}" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit">Remove Favorite</button>
+        </form>
      </li>
      {% endfor %}
  </ul>
@@ -44,13 +55,18 @@
 <ul>
   {% for review in user.review_set.all %}
   <li>
-    <h3>{{ review.restaurant.name }}</h3>
+    <h3><a href="{% url 'restaurant_detail' yelp_id=review.restaurant.yelp_id %}">{{ review.restaurant.name }}</a></h3>
     <p>{{ review.text }}</p>
     <p>Rating: {{ review.rating }}</p>
-    <a href="{% url 'edit_review' review.id %}">Edit Review</a>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="{% url 'delete_review' review.id %}">Delete Review</a>
+    {% if user.is_authenticated and user == review.user %}
+    <a href="{% url 'edit_review' review.id %}"><button class="button">Edit Review</button></a>
+    {% endif %}
+    <form method="post" action="{% url 'delete_review' review.id %}" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit">Delete Review</button>
+    </form>
   </li>
   {% endfor %}
 </ul>
-{% endif %}  {% endblock %}
+{% endif %}  
+{% endblock %}

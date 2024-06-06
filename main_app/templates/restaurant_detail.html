@@ -2,9 +2,8 @@
 {% block content %}
 <div class="restaurant-detail">
     <h1>{{ restaurant.name }}</h1>
-    <p>Location: {{ restaurant.location }}</p>
+    <p>Address:  {{ restaurant.location }} <a href="https://www.google.com/maps/dir/?api=1&destination={{ restaurant.location|urlencode }}" target="_blank">Click here for directions</a></p>
     <p>Rating: {{ restaurant.rating }}</p>
-
     <div class="reviews">
         <h2>Reviews</h2>
         {% for review in reviews %}
