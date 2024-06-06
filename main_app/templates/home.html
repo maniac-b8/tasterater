@@ -20,7 +20,7 @@
         {% for i in range %}
           <i class="fas fa-star{% if business.rating < i %}-o{% endif %}"></i>
         {% endfor %}
-       （{{ business.rating }}）
+       {{ business.rating }}
       </p>
       <p>Address:  {{ business.location.address1 }} <a href="https://www.google.com/maps/dir/?api=1&destination={{ business.location.address1|urlencode }}" target="_blank">Click here for directions</a></p>
       <div class="restaurant-info">
@@ -68,6 +68,7 @@
           <i class="fas fa-star{% if review.rating < i %}-o{% endif %}"></i>
         {% endfor %}
         ({{ review.rating }})
+        <p>Reviewed on: {{ review.created_at|date:"F j, Y, g:i a" }}</p>
       </div>
     </p>
     {% if user.is_authenticated and user == review.user %}

@@ -51,7 +51,8 @@ def restaurant_detail(request, yelp_id):
                 yelp_id=yelp_id,
                 name=business['name'],
                 location=business['location']['address1'],
-                rating=business['rating']
+                rating=business['rating'],
+                image_url=business.get('image_url')
             )
         else:
             return render(request, 'home.html', {'error_message': 'Failed to retrieve restaurant details from Yelp.'})
@@ -69,7 +70,8 @@ def add_review(request, yelp_id):
                 yelp_id=yelp_id,
                 name=business['name'],
                 location=business['location']['address1'],
-                rating=business['rating']
+                rating=business['rating'],
+                image_url=business.get('image_url')
             )
         else:
             return render(request, 'home.html', {'error_message': 'Failed to retrieve restaurant details from Yelp.'})
