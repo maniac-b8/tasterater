@@ -22,7 +22,7 @@
         {% endfor %}
        {{ business.rating }}
       </p>
-      <p>Address:  {{ business.location.address1 }} <a href="https://www.google.com/maps/dir/?api=1&destination={{ business.location.address1|urlencode }}" target="_blank">Click here for directions</a></p>
+      <p>Address: <a href="https://www.google.com/maps/dir/?api=1&destination={{ business.location.address1|urlencode }}" target="_blank">{{ business.location.address1 }}</a></p>
       <div class="restaurant-info">
         <div class="restaurant-image">
           {% if business.image_url %}
@@ -64,7 +64,7 @@
     <p>{{ review.text }}</p>
     <p>Rating: 
       <div class="star-rating">
-        {% for i in range %}
+        {% for i in range reversed %}
           <i class="fas fa-star{% if review.rating < i %}-o{% endif %}"></i>
         {% endfor %}
         ({{ review.rating }})

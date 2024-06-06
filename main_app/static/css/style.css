@@ -1,7 +1,7 @@
 /* style.css */
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Merriweather', serif;
   margin: 0;
   padding: 0;
   background-color: #f5f5f5;
@@ -9,13 +9,17 @@ body {
 
 .site-title {
   font-family: 'Oswald', sans-serif;
-  font-size: 2em;
+  font-size: 3em;
   font-weight: bold;
-  color: #bf5039;
+  color: black;
+}
+
+button, input, select, textarea, a, .button, .inline-form {
+  font-family: 'Merriweather', serif;
 }
 
 .nav-wrapper {
-  background-image: url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  background-image: url('https://i.imgur.com/plPV7lY.jpeg');
   background-size: cover;
   background-position: center;
   display: flex;
@@ -331,6 +335,15 @@ h2 {
   background-color: #ff5722;
 }
 
+.restaurant-detail .address-link {
+  color: #666;
+  text-decoration: underline;
+}
+
+.restaurant-detail .address-link:hover {
+  color: #ff7043;
+}
+
 /* Review Section */
 
 .review-list {
@@ -416,7 +429,6 @@ h2 {
   margin-bottom: 10px;
 }
 
-
 .home-image {
   width: 100%;
   height: auto;
@@ -450,4 +462,16 @@ h2 {
 .star-rating label:hover,
 .star-rating label:hover ~ label {
   color: #ffca08;
+}
+
+/* Style for logout button */
+.inline-form .button {
+  background-color: white; /* Change background to white */
+  color: #ff7043; /* Change text color to orange */
+  border: 2px solid gray; /* Optional: Add a border with the same orange color */
+}
+
+.inline-form .button:hover {
+  background-color: #ff7043; /* Orange background on hover */
+  color: white; /* White text on hover */
 }
