@@ -12,8 +12,8 @@ def home(request):
     term = request.GET['term']
     location = request.GET['location']
     results = search_businesses(term, location)
-    return render (request, 'home.html', {'results': results['businesses']})
-  return render(request, 'home.html')
+    return render (request, 'home.html', {'results': results['businesses'], 'range': range(1, 6)})
+  return render(request, 'home.html', {'range': range(1, 6)})
 
 @login_required
 def add_favorite(request, yelp_id):
@@ -57,7 +57,7 @@ def restaurant_detail(request, yelp_id):
             return render(request, 'home.html', {'error_message': 'Failed to retrieve restaurant details from Yelp.'})
     reviews = Review.objects.filter(restaurant=restaurant)
     
-    return render(request, 'restaurant_detail.html', {'restaurant': restaurant, 'reviews': reviews})
+    return render(request, 'restaurant_detail.html', {'restaurant': restaurant, 'reviews': reviews, 'range':range(1, 6)})
 
 @login_required
 def add_review(request, yelp_id):
@@ -78,7 +78,7 @@ def add_review(request, yelp_id):
         rating = request.POST['rating']
         Review.objects.create(user=request.user, restaurant=restaurant, text=text, rating=rating)
         return redirect('home')
-    return render(request, 'add_review.html', {'restaurant': restaurant})
+    return render(request, 'add_review.html', {'restaurant': restaurant, 'range': range(1, 6)})
 
 @login_required
 def edit_review(request, review_id):
@@ -88,7 +88,7 @@ def edit_review(request, review_id):
         review.rating = request.POST['rating']
         review.save()
         return redirect('home')
-    return render(request, 'edit_review.html', {'review': review})  
+    return render(request, 'edit_review.html', {'review': review, 'range': range(1, 6)})  
 
 @login_required
 def delete_review(request, review_id):
