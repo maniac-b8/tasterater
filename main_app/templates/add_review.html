@@ -10,7 +10,7 @@
             <textarea id="text" name="text" required></textarea>
             <label for="rating">Rating:</label>
             <div class="star-rating">
-                {% for i in range%}
+                {% for i in range reversed %}
                 <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}">
                 <label for="star{{ i }}" title="{{ i }} stars">
                     <i class="fas fa-star"></i>
