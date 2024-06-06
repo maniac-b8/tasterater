@@ -207,6 +207,17 @@ h2 {
     text-align: center;
 }
 
+/* styles for the review date */
+.restaurant-detail .review .star-rating p {
+  font-size: 0.7em;
+  color: #666;
+}
+
+/* size of the review date on the home page */
+main ul li .star-rating p {
+  font-size: 0.7em;
+}
+
 /* Add Review and Edit Review Styles */
 .add-review, .edit-review {
   max-width: 600px;
@@ -311,8 +322,9 @@ h2 {
 }
 
 .restaurant-detail .review .rating {
-  color: #ff7043;
+  color: grey;
   font-style: italic;
+  font-size: 1.2em;
 }
 
 .restaurant-detail .add-review-button {
@@ -342,6 +354,16 @@ h2 {
 
 .restaurant-detail .address-link:hover {
   color: #ff7043;
+}
+
+.restaurant-detail .restaurant-address a {
+  color: grey !important;
+  text-decoration: underline;
+}
+
+.restaurant-detail .star-rating {
+  font-size: 20px;
+  color: #fcad03;
 }
 
 /* Review Section */

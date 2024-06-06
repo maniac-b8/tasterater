@@ -68,7 +68,7 @@
           <i class="fas fa-star{% if review.rating < i %}-o{% endif %}"></i>
         {% endfor %}
         ({{ review.rating }})
-        <p>Reviewed on: {{ review.created_at|date:"F j, Y, g:i a" }}</p>
+        <p>Reviewed on: {{ review.created_at|date:"F j, Y g:i a" }}</p>
       </div>
     </p>
     {% if user.is_authenticated and user == review.user %}
