@@ -2,8 +2,8 @@
 {% block content %}
 
     <title>Add Review</title>
-    <div class="add-review"></div>
-        <h1>Add review for {{ resturant.name }}</h1>
+    <div class="add-review">
+        <h1>Add review for {{ restaurant.name }}</h1>
         <form method="post">
             {% csrf_token %}
             <label for="text">Review:</label>
