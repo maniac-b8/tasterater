@@ -1,47 +1,49 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>{{ user.username }}'s Profile</h1>
+<div class="profile">
+    <h1>{{ user.username }}'s Profile</h1>
 
-<h2>Favorites</h2>
-<ul>
-    {% for favorite in favorites %}
-    <li>
-        <h3><a href="{% url 'restaurant_detail' yelp_id=favorite.restaurant.yelp_id %}">{{ favorite.restaurant.name }}</a></h3>
-        <form method="post" action="{% url 'remove_favorite' favorite.restaurant.yelp_id %}" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit">Remove Favorite</button>
-        </form>
-    </li>
-    {% empty %}
-    <li>No favorites yet.</li>
-    {% endfor %}
-</ul>
+    <h2>Favorites</h2>
+    <ul>
+        {% for favorite in favorites %}
+        <li>
+            <h3><a href="{% url 'restaurant_detail' yelp_id=favorite.restaurant.yelp_id %}">{{ favorite.restaurant.name }}</a></h3>
+            <form method="post" action="{% url 'remove_favorite' favorite.restaurant.yelp_id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Remove Favorite</button>
+            </form>
+        </li>
+        {% empty %}
+        <li>No favorites yet.</li>
+        {% endfor %}
+    </ul>
 
-<h2>Reviews</h2>
-<ul>
-    {% for review in reviews %}
-    <li>
-        <h3><a href="{% url 'restaurant_detail' yelp_id=review.restaurant.yelp_id %}">{{ review.restaurant.name }}</a></h3>
-        <p>{{ review.text }}</p>
-        <p>Rating:
-            <div class="star-rating">
-                {% for i in range reversed %}
-                <i class="fas fa-star"></i>
-                {% endfor %}
-            </div>
-        </p>
-        <p>Reviewed on: {{ review.created_at|date:"F j, Y, g:i a" }}</p>
-        {% if user.is_authenticated and user == review.user %}
-        <a href="{% url 'edit_review' review.id %}"><button class="button">Edit Review</button></a>
-        {% endif %}
-        <form method="post" action="{% url 'delete_review' review.id %}" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit">Delete Review</button>
-        </form>
-    </li>
-    {% empty %}
-    <li>No reviews yet.</li>
-    {% endfor %}
-</ul>
-
+    <h2>Reviews</h2>
+    <ul>
+        {% for review in reviews %}
+        <li>
+            <h3><a href="{% url 'restaurant_detail' yelp_id=review.restaurant.yelp_id %}">{{ review.restaurant.name }}</a></h3>
+            <p>{{ review.text }}</p>
+            <p>Rating:
+                <div class="star-rating">
+                    {% for i in range reversed %}
+                    <i class="fas fa-star{% if review.rating < i %}-o{% endif %}"></i>
+                    {% endfor %}
+                    ({{ review.rating }})
+                </div>
+            </p>
+            <p>Reviewed on: {{ review.created_at|date:"F j, Y g:i a" }}</p>
+            {% if user.is_authenticated and user == review.user %}
+            <a href="{% url 'edit_review' review.id %}"><button class="button">Edit Review</button></a>
+            {% endif %}
+            <form method="post" action="{% url 'delete_review' review.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Delete Review</button>
+            </form>
+        </li>
+        {% empty %}
+        <li>No reviews yet.</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
