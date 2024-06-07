@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="profile">
-    <h1>{{ user.username }}'s Profile</h1>
+    <h1>{{ profile_user.username }}'s Profile</h1> 
 
     <h2>Favorites</h2>
     <ul>
         {% for favorite in favorites %}
         <li>
             <h3><a href="{% url 'restaurant_detail' yelp_id=favorite.restaurant.yelp_id %}">{{ favorite.restaurant.name }}</a></h3>
+            {% if user == profile_user %}
             <form method="post" action="{% url 'remove_favorite' favorite.restaurant.yelp_id %}" style="display:inline;">
                 {% csrf_token %}
                 <button type="submit">Remove Favorite</button>
             </form>
+            {% endif %}
         </li>
         {% empty %}
         <li>No favorites yet.</li>
@@ -33,13 +35,15 @@
                 </div>
             </p>
             <p>Reviewed on: {{ review.created_at|date:"F j, Y g:i a" }}</p>
-            {% if user.is_authenticated and user == review.user %}
+            {% if user == review.user %}
             <a href="{% url 'edit_review' review.id %}"><button class="button">Edit Review</button></a>
             {% endif %}
+            {% if user == review.user %}
             <form method="post" action="{% url 'delete_review' review.id %}" style="display:inline;">
                 {% csrf_token %}
                 <button type="submit">Delete Review</button>
             </form>
+            {% endif %}
         </li>
         {% empty %}
         <li>No reviews yet.</li>

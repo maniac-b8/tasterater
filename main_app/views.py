@@ -4,6 +4,7 @@ from .models import Restaurant, Favorite, Review
 from django.contrib.auth import login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # Create your views down here. 
 
@@ -107,11 +108,11 @@ def delete_review(request, review_id):
   return redirect('home')  
 
 @login_required
-def profile(request):
-    user = request.user
+def user_profile(request, user_id):
+    user = get_object_or_404(User, id=user_id)
     favorites = Favorite.objects.filter(user=user)
     reviews = Review.objects.filter(user=user)
-    return render(request, 'profile.html', {'user': user, 'favorites': favorites, 'reviews': reviews, 'range': range(1, 6)})
+    return render(request, 'profile.html', {'profile_user': user, 'favorites': favorites, 'reviews': reviews, 'range': range(1, 6)})
 
 def signup(request):
   error_message = ''
