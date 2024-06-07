@@ -6,52 +6,55 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-# Create your views down here. 
-
 def home(request):
-  if 'term' in request.GET and 'location' in request.GET:
-    term = request.GET['term']
-    location = request.GET['location']
-    sort_by = request.GET.get('sort_by', 'rating')
-    results = search_businesses(term, location)
+    results = []
+    is_search = False
+    if 'term' in request.GET and 'location' in request.GET:
+        term = request.GET['term']
+        location = request.GET['location']
+        sort_by = request.GET.get('sort_by', 'rating')
+        results = search_businesses(term, location)
 
-    businesses = results['businesses']
+        businesses = results.get('businesses', [])
+        if sort_by == 'rating':
+            businesses = sorted(businesses, key=lambda x: x['rating'], reverse=True)
+        elif sort_by == 'name':
+            businesses = sorted(businesses, key=lambda x: x['name'])
+        is_search = True
+    else:
+        location = 'San Francisco'  
+        results = search_businesses(location=location)
+        businesses = sorted(results.get('businesses', []), key=lambda x: x['rating'], reverse=True)[:10]
 
-    if sort_by == 'rating':
-       businesses = sorted(businesses, key=lambda x: x['rating'], reverse=True)
-    elif sort_by == 'name':
-       businesses = sorted(businesses, key=lambda x: x['name'])
-    return render (request, 'home.html', {'results': businesses, 'range': range(1, 6)})
-  return render(request, 'home.html', {'range': range(1, 6)})
+    return render(request, 'home.html', {'results': businesses, 'is_search': is_search, 'range': range(1, 6)})
 
 @login_required
 def add_favorite(request, yelp_id):
-  restaurant = Restaurant.objects.filter(yelp_id=yelp_id).first()
-  if not restaurant:
-    business = get_business_details(yelp_id)
-    if business and 'name' in business and 'location' in business and 'rating' in business:
-      restaurant = Restaurant.objects.create(
-        yelp_id=yelp_id,
-        name=business['name'],
-        location=business['location']['address1'],
-        rating=business['rating']
-      )
-    else:
-      return render(request, 'home.html', {'error_message': 'Failed to retrieve restaurant details from Yelp.'})
-  Favorite.objects.get_or_create(user=request.user, restaurant=restaurant)
-  return redirect('home')
-  
+    restaurant = Restaurant.objects.filter(yelp_id=yelp_id).first()
+    if not restaurant:
+        business = get_business_details(yelp_id)
+        if business and 'name' in business and 'location' in business and 'rating' in business:
+            restaurant = Restaurant.objects.create(
+                yelp_id=yelp_id,
+                name=business['name'],
+                location=business['location']['address1'],
+                rating=business['rating']
+            )
+        else:
+            return render(request, 'home.html', {'error_message': 'Failed to retrieve restaurant details from Yelp.'})
+    Favorite.objects.get_or_create(user=request.user, restaurant=restaurant)
+    return redirect('home')
+
 @login_required
 def remove_favorite(request, yelp_id):
-  restaurant = get_object_or_404(Restaurant, yelp_id=yelp_id)
-  favorite = get_object_or_404(Favorite, user=request.user, restaurant=restaurant)
-  favorite.delete()
-  return redirect('home')
-  
+    restaurant = get_object_or_404(Restaurant, yelp_id=yelp_id)
+    favorite = get_object_or_404(Favorite, user=request.user, restaurant=restaurant)
+    favorite.delete()
+    return redirect('home')
+
 @login_required
 def restaurant_detail(request, yelp_id):
     try:
-        # Try to get the restaurant from the database
         restaurant = Restaurant.objects.get(yelp_id=yelp_id)
     except Restaurant.DoesNotExist:
         business = get_business_details(yelp_id)
@@ -66,8 +69,7 @@ def restaurant_detail(request, yelp_id):
         else:
             return render(request, 'home.html', {'error_message': 'Failed to retrieve restaurant details from Yelp.'})
     reviews = Review.objects.filter(restaurant=restaurant)
-    
-    return render(request, 'restaurant_detail.html', {'restaurant': restaurant, 'reviews': reviews, 'range':range(1, 6)})
+    return render(request, 'restaurant_detail.html', {'restaurant': restaurant, 'reviews': reviews, 'range': range(1, 6)})
 
 @login_required
 def add_review(request, yelp_id):
@@ -99,13 +101,13 @@ def edit_review(request, review_id):
         review.rating = request.POST['rating']
         review.save()
         return redirect('home')
-    return render(request, 'edit_review.html', {'review': review, 'range': range(1, 6)})  
+    return render(request, 'edit_review.html', {'review': review, 'range': range(1, 6)})
 
 @login_required
 def delete_review(request, review_id):
-  review = get_object_or_404(Review, id=review_id)
-  review.delete()
-  return redirect('home')  
+    review = get_object_or_404(Review, id=review_id)
+    review.delete()
+    return redirect('home')
 
 @login_required
 def user_profile(request, user_id):
@@ -115,14 +117,15 @@ def user_profile(request, user_id):
     return render(request, 'profile.html', {'profile_user': user, 'favorites': favorites, 'reviews': reviews, 'range': range(1, 6)})
 
 def signup(request):
-  error_message = ''
-  if request.method == 'POST':
-    form = UserCreationForm(request.POST)
-    if form.is_valid():
-      user = form.save()
-      login(request, user)
-      return redirect('home')
-    else : error_message = 'Invalid sign up - try again'
-  form = UserCreationForm()
-  context = {'form': form, 'error_message': error_message}
-  return render(request, 'registration/signup.html', context)
+    error_message = ''
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+        else:
+            error_message = 'Invalid sign up - try again'
+    form = UserCreationForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'registration/signup.html', context)
