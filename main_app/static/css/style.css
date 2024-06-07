@@ -1,5 +1,3 @@
-/* style.css */
-
 body {
   font-family: 'Merriweather', serif;
   margin: 0;
@@ -11,7 +9,7 @@ body {
   font-family: 'Oswald', sans-serif;
   font-size: 3em;
   font-weight: bold;
-  color: black;
+  color: white;
 }
 
 button, input, select, textarea, a, .button, .inline-form {
@@ -37,44 +35,56 @@ button, input, select, textarea, a, .button, .inline-form {
   padding: 0;
 }
 
-.left-nav {
-  margin-left: 0;
-}
-
-.right-nav {
-  margin-right: 0;
-}
-
 .nav-wrapper ul li {
   margin: 0 10px;
 }
 
-.nav-wrapper ul li a {
-  color: white !important;
-  text-decoration: none;
+.nav-wrapper ul li a:hover, .nav-wrapper ul li button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-.nav-wrapper ul li a:hover {
-  text-decoration: underline; /* Optional: Add underline on hover */
-}
-
-
-.submit-link {
-  background: none;
-  border: none;
+.nav-wrapper ul li a.button, .nav-wrapper ul li .button {
+  background-color: #ff7043;
   color: white;
-  cursor: pointer;
-  font-size: 1em;
+  border: none;
+  text-align: center;
 }
 
-.submit-link:hover {
-  text-decoration: underline;
+.nav-wrapper ul li a.button:hover, .nav-wrapper ul li .button:hover {
+  background-color: #ff5722;
+}
+
+.nav-wrapper ul li a.button {
+  background-color: white;
+  color: #ff7043;
+  border: none;
+  text-align: center;
+}
+
+.nav-wrapper ul li a.button:hover {
+  background-color: #ff8b3d;
+  color: white;
 }
 
 .inline-form {
-  display: inline;
-  margin: 0;
-  padding: 0;
+  display: inline-block;
+}
+
+.inline-form .button.logout-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: white;
+  color: #ff5722;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  text-align: center;
+}
+
+.inline-form .button.logout-button:hover {
+  background-color: #ff8b3d;
+  color: white;
 }
 
 .container {
@@ -84,7 +94,7 @@ button, input, select, textarea, a, .button, .inline-form {
 .page-footer {
   background-color: #ff7043;
   color: white;
-  padding: 10px 0;
+  padding: 6px 0;
   position: fixed;
   width: 100%;
   bottom: 0;
@@ -99,27 +109,27 @@ button, input, select, textarea, a, .button, .inline-form {
 
 @media only screen and (max-width: 600px) {
   .nav-wrapper {
-      flex-direction: column;
+    flex-direction: column;
   }
 
   .left-nav, .right-nav {
-      margin: 0;
+    margin: 0;
   }
 
   .left-nav {
-      margin-bottom: 10px;
+    margin-bottom: 10px;
   }
 
   .brand-logo {
-      font-size: 1.2em;
+    font-size: 1.2em;
   }
 
   .submit-link {
-      font-size: 0.9em;
+    font-size: 0.9em;
   }
 
   .page-footer .right {
-      padding-right: 10px;
+    padding-right: 10px;
   }
 }
 
@@ -160,7 +170,6 @@ form button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
-    margin-top: 20px;
 }
 
 main form button:hover {
@@ -460,9 +469,9 @@ main ul li .star-rating p {
 }
 
 .main ul li img {
-  height: 200px; /* Adjust the height as needed */
-  width: 200px; /* Adjust the width as needed */
-  object-fit: cover; /* Maintain aspect ratio while covering the container */
+  height: 200px; 
+  width: 200px;
+  object-fit: cover;
 }
 
 .star-rating {
@@ -486,14 +495,103 @@ main ul li .star-rating p {
   color: #ffca08;
 }
 
-/* Style for logout button */
-.inline-form .button {
-  background-color: white; /* Change background to white */
-  color: #ff7043; /* Change text color to orange */
-  border: 2px solid gray; /* Optional: Add a border with the same orange color */
+/* Profile Page Styles */
+.profile {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.inline-form .button:hover {
-  background-color: #ff7043; /* Orange background on hover */
-  color: white; /* White text on hover */
+.profile h1 {
+  font-size: 2.5em;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile p {
+  font-size: 1.2em;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.profile .profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.profile .profile-info img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.profile .profile-info h2 {
+  font-size: 2em;
+  color: #333;
+  margin: 10px 0;
+}
+
+.profile .profile-info p {
+  font-size: 1.2em;
+  color: #666;
+  margin: 5px 0;
+}
+
+.profile .profile-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.profile .profile-actions .button {
+  margin: 0 10px;
+}
+
+.profile .profile-reviews {
+  margin-top: 30px;
+}
+
+.profile .profile-reviews h2 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.profile .review {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* .profile .review .review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 577px 588px;
+} */
+
+/* .profile .review .review-header h3 {
+  font-size: 1.5em;
+  color: #333;
+  margin: 0;
+} */
+
+.profile .review .review-header .rating {
+  font-size: 1.2em;
+  color: #ff7043;
+}
+
+.profile .review .review-content {
+  font-size: 1.2em;
+  color: #666;
 }
