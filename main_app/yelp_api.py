@@ -14,7 +14,7 @@ def search_businesses(term=None, location=None, category=None):
         'Authorization' : f"Bearer {API_KEY}"
     }
     params = {
-        'limit': 10
+        'limit': 50
     }
     if term:
         params['term'] = term
