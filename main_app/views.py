@@ -98,6 +98,13 @@ def delete_review(request, review_id):
   review.delete()
   return redirect('home')  
 
+@login_required
+def profile(request):
+    user = request.user
+    favorites = Favorite.objects.filter(user=user)
+    reviews = Review.objects.filter(user=user)
+    return render(request, 'profile.html', {'user': user, 'favorites': favorites, 'reviews': reviews, 'range': range(1, 6)})
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
