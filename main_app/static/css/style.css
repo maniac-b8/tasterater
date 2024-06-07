@@ -19,7 +19,7 @@ button, input, select, textarea, a, .button, .inline-form {
 }
 
 .nav-wrapper {
-  background-image: url('https://i.imgur.com/plPV7lY.jpeg');
+  background-image: url('../images/plPV7lY.jpeg');
   background-size: cover;
   background-position: center;
   display: flex;
