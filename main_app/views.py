@@ -20,14 +20,13 @@ def home(request):
 
         businesses = results.get('businesses', [])
         if sort_by == 'rating':
-            businesses = sorted(businesses, key=lambda x: x['rating'], reverse=True)
-        elif sort_by == 'name':
-            businesses = sorted(businesses, key=lambda x: x['name'])
-        is_search = True
+            businesses = sorted(businesses, key=lambda x: x.get('rating', 0), reverse=True)
+        elif sort_by == 'term':
+            businesses = sorted(businesses, key=lambda x: x.get('term', '').lower())
     else:
         location = 'San Francisco'  
         results = search_businesses(location=location)
-        businesses = sorted(results.get('businesses', []), key=lambda x: x['rating'], reverse=True)[:10]
+        businesses = sorted(results.get('businesses', []), key=lambda x: x.get('rating', 0), reverse=True)[:10]
 
     # split pages
     page = request.GET.get('page', 1)
