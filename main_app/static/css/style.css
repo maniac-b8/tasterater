@@ -29,9 +29,8 @@ button, input, select, textarea, a, .button, .inline-form {
 
 .left-nav, .right-nav {
   display: flex;
-  align-items: center;
   list-style: none;
-  margin: 0;
+  margin-bottom: 2px;
   padding: 0;
 }
 
@@ -59,6 +58,7 @@ button, input, select, textarea, a, .button, .inline-form {
   color: #ff7043;
   border: none;
   text-align: center;
+  margin-top: 10px;
 }
 
 .nav-wrapper ul li a.button:hover {
@@ -170,6 +170,7 @@ form button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
+    margin-top: 10px;
 }
 
 main form button:hover {
@@ -573,18 +574,18 @@ main ul li .star-rating p {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* .profile .review .review-header {
+.profile .review .review-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 577px 588px;
-} */
+} 
 
-/* .profile .review .review-header h3 {
+.profile .review .review-header h3 {
   font-size: 1.5em;
   color: #333;
   margin: 0;
-} */
+}
 
 .profile .review .review-header .rating {
   font-size: 1.2em;

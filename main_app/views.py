@@ -11,8 +11,16 @@ def home(request):
   if 'term' in request.GET and 'location' in request.GET:
     term = request.GET['term']
     location = request.GET['location']
+    sort_by = request.GET.get('sort_by', 'rating')
     results = search_businesses(term, location)
-    return render (request, 'home.html', {'results': results['businesses'], 'range': range(1, 6)})
+
+    businesses = results['businesses']
+
+    if sort_by == 'rating':
+       businesses = sorted(businesses, key=lambda x: x['rating'], reverse=True)
+    elif sort_by == 'name':
+       businesses = sorted(businesses, key=lambda x: x['name'])
+    return render (request, 'home.html', {'results': businesses, 'range': range(1, 6)})
   return render(request, 'home.html', {'range': range(1, 6)})
 
 @login_required
