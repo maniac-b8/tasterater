@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.forms import UserCreationForm
 from .yelp_api import search_businesses, get_business_details
 from .models import Restaurant, Favorite, Review
@@ -9,10 +10,12 @@ from django.contrib.auth.models import User
 def home(request):
     results = []
     is_search = False
+    businesses = []
     if 'term' in request.GET and 'location' in request.GET:
         term = request.GET['term']
         location = request.GET['location']
         sort_by = request.GET.get('sort_by', 'rating')
+        is_search = True
         results = search_businesses(term, location)
 
         businesses = results.get('businesses', [])
@@ -26,7 +29,24 @@ def home(request):
         results = search_businesses(location=location)
         businesses = sorted(results.get('businesses', []), key=lambda x: x['rating'], reverse=True)[:10]
 
-    return render(request, 'home.html', {'results': businesses, 'is_search': is_search, 'range': range(1, 6)})
+    # split pages
+    page = request.GET.get('page', 1)
+    paginator = Paginator(businesses, 10)  # show 10 businesses per page
+
+    try:
+        businesses = paginator.page(page)
+    except PageNotAnInteger:
+        businesses = paginator.page(1)
+    except EmptyPage:
+        businesses = paginator.page(paginator.num_pages)
+
+    return render(request, 'home.html', {
+        'results': businesses,
+        'is_search': is_search,
+        'term': request.GET.get('term', ''),
+        'location': request.GET.get('location', location),
+        'sort_by': request.GET.get('sort_by', 'rating'),
+    })
 
 @login_required
 def add_favorite(request, yelp_id):
