@@ -22,7 +22,7 @@
                 <ul class="right-nav">
                   {% if user.is_authenticated %}
                   <li>
-                    <a href="{% url 'profile' %}" class="button">Profile</a>
+                    <a href="{% url 'user_profile' user.id %}" class="button">Profile</a>
                   </li>
                     <li>
                         <form method="post" action="{% url 'logout' %}" class="inline-form">
@@ -40,7 +40,7 @@
     </header>
     <main class="container">
       {% block content %}
-      {% endblock %}    
+      {% endblock %}
     </main>
     <footer class="page-footer">
       <div class="right">All Rights Reserved, &copy; 2024 Taste Rater &nbsp;</div>

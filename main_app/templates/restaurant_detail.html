@@ -8,9 +8,9 @@
     <p>Overall Rating: 
         <div class="star-rating">
             {% for i in range %}
-                <i class="fas fa-star{% if restaurant.rating < i %}-o{% endif %}"-></i>
+                <i class="fas fa-star{% if restaurant.rating < i %}-o{% endif %}"></i>
             {% endfor %}
-            ({{restaurant.rating}})
+            ({{ restaurant.rating }})
         </div>
     </p>
     {% if restaurant.image_url %}
@@ -19,21 +19,20 @@
     <div class="reviews">
         <h2>Reviews</h2>
         {% for review in reviews %}
-            <div class="review">
-                <p class="user">{{ review.user.username }}</p>
-                <p class="text">{{ review.text }}</p>
-                <p class="rating">Rating: 
-                    <div class="star-rating">
-                        {% for i in range %}
-                            <i class="fas fa-star{% if review.rating < i %}-o{% endif %}"></i>
-                        {% endfor %}
-                        {{ review.rating }}
-                    </div>
-                </p>
-                <p>Reviewed on: {{ review.created_at|date:"F j, Y g:i a" }}</p> <!-- Display the date when the review was created -->
-            </div>
+        <div class="review">
+            <h3><a href="{% url 'user_profile' user_id=review.user.id %}">{{ review.user.username }}</a></h3> 
+            <p class="rating">Rating: 
+                <div class="star-rating">
+                    {% for i in range %}
+                        <i class="fas fa-star{% if review.rating < i %}-o{% endif %}"></i>
+                    {% endfor %}
+                    {{ review.rating }}
+                </div>
+            </p>
+            <p>Reviewed on: {{ review.created_at|date:"F j, Y g:i a" }}</p>
+        </div>
         {% empty %}
-            <p>No reviews yet.</p>
+        <p>No reviews yet.</p>
         {% endfor %}
     </div>
 
@@ -42,5 +41,4 @@
         <a href="{% url 'home' %}" class="button back-button">Back to Home</a>
     </div>
 </div>
-
 {% endblock %}
