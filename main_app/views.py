@@ -69,7 +69,7 @@ def remove_favorite(request, yelp_id):
     restaurant = get_object_or_404(Restaurant, yelp_id=yelp_id)
     favorite = get_object_or_404(Favorite, user=request.user, restaurant=restaurant)
     favorite.delete()
-    return redirect('home')
+    return redirect('user_profile', user_id=request.user.id)
 
 @login_required
 def restaurant_detail(request, yelp_id):
@@ -119,14 +119,14 @@ def edit_review(request, review_id):
         review.text = request.POST['text']
         review.rating = request.POST['rating']
         review.save()
-        return redirect('home')
-    return render(request, 'edit_review.html', {'review': review, 'range': range(1, 6)})
+        return redirect('user_profile', user_id=request.user.id)
+    return render(request, 'edit_review.html', {'review': review,  'range': range(1, 6)})
 
 @login_required
 def delete_review(request, review_id):
     review = get_object_or_404(Review, id=review_id)
     review.delete()
-    return redirect('home')
+    return redirect('user_profile', user_id=request.user.id)
 
 @login_required
 def user_profile(request, user_id):
