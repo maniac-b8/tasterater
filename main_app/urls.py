@@ -10,5 +10,5 @@ urlpatterns = [
     path('delete_review/<int:review_id>/', views.delete_review, name='delete_review'), 
     path('add_favorite/<str:yelp_id>/', views.add_favorite, name='add_favorite'),
     path('remove_favorite/<str:yelp_id>/', views.remove_favorite, name='remove_favorite'),
-     path('profile/<int:user_id>/', views.user_profile, name='user_profile'),
+    path('profile/<int:user_id>/', views.user_profile, name='user_profile'),
 ]
