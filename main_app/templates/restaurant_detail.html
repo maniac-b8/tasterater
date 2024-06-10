@@ -29,6 +29,11 @@
                     {{ review.rating }}
                 </div>
             </p>
+            {% for photo in review.photo_set.all %}
+            <img src="{{ photo.url }}" alt="Review Photo" class="limited-size-img">
+    {% empty %}
+      <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+    {% endfor %}
             <p>Reviewed on: {{ review.created_at|date:"F j, Y g:i a" }}</p>
         </div>
         {% empty %}

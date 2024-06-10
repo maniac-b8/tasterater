@@ -1,7 +1,10 @@
+import os
+import uuid
+import boto3
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.forms import UserCreationForm
 from .yelp_api import search_businesses, get_business_details
-from .models import Restaurant, Favorite, Review
+from .models import Restaurant, Favorite, Review, Photo
 from django.contrib.auth import login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -108,8 +111,23 @@ def add_review(request, yelp_id):
     if request.method == 'POST':
         text = request.POST['text']
         rating = request.POST['rating']
-        Review.objects.create(user=request.user, restaurant=restaurant, text=text, rating=rating)
-        return redirect('home')
+        photo_file = request.FILES.get('photo-file', None)
+        
+        review = Review.objects.create(user=request.user, restaurant=restaurant, text=text, rating=rating)
+        
+        if photo_file:
+            s3 = boto3.client('s3')
+            key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+            try:
+                bucket = os.environ['S3_BUCKET']
+                s3.upload_fileobj(photo_file, bucket, key)
+                url = f"{os.environ['AWS_S3_BASE_URL']}{bucket}/{key}"
+                Photo.objects.create(url=url, review=review)
+            except Exception as e:
+                print('An error occurred uploading file to S3')
+                print(e)
+        
+        return redirect('restaurant_detail', yelp_id=restaurant.yelp_id)
     return render(request, 'add_review.html', {'restaurant': restaurant, 'range': range(1, 6)})
 
 @login_required
@@ -134,6 +152,7 @@ def user_profile(request, user_id):
     favorites = Favorite.objects.filter(user=user)
     reviews = Review.objects.filter(user=user)
     return render(request, 'profile.html', {'profile_user': user, 'favorites': favorites, 'reviews': reviews, 'range': range(1, 6)})
+
 
 def signup(request):
     error_message = ''
