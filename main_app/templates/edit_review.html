@@ -17,7 +17,22 @@
                 </label>
                 {% endfor %}
             </div>
+            <label for="photo">Photo (optional):</label>
+            <input type="file" name="photo-file">
             <button type="submit">Submit</button>
         </form>
+    </div>
+
+    <div class="exisiting-photos">
+        <h2>Exisiting Photos</h2>
+        {% for photo in review.photo_set.all %}
+        <div class="photo">
+            <img src="{{ photo.url }}" alt="review photo" class="limited-size-img">
+            <form method="post" action="{% url 'delete_photo' photo.id %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
     </div>
     {% endblock %}

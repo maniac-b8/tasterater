@@ -133,12 +133,28 @@ def add_review(request, yelp_id):
 @login_required
 def edit_review(request, review_id):
     review = get_object_or_404(Review, id=review_id)
+    restaurant = review.restaurant
+    
     if request.method == 'POST':
         review.text = request.POST['text']
         review.rating = request.POST['rating']
         review.save()
+        
+        photo_file = request.FILES.get('photo-file', None)
+        if photo_file:
+            s3 = boto3.client('s3')
+            key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+            try:
+                bucket = os.environ['S3_BUCKET']
+                s3.upload_fileobj(photo_file, bucket, key)
+                url = f"{os.environ['AWS_S3_BASE_URL']}{bucket}/{key}"
+                Photo.objects.create(url=url, review=review)
+            except Exception as e:
+                print('An error occurred uploading file to S3')
+                print(e)                 
+        
         return redirect('user_profile', user_id=request.user.id)
-    return render(request, 'edit_review.html', {'review': review,  'range': range(1, 6)})
+    return render(request, 'edit_review.html', {'review': review, 'restaurant': restaurant,  'range': range(1, 6)})
 
 @login_required
 def delete_review(request, review_id):
@@ -153,6 +169,13 @@ def user_profile(request, user_id):
     reviews = Review.objects.filter(user=user)
     return render(request, 'profile.html', {'profile_user': user, 'favorites': favorites, 'reviews': reviews, 'range': range(1, 6)})
 
+@login_required
+def delete_photo(request, photo_id):
+    photo = get_object_or_404(Photo, id=photo_id)
+    review_id = photo.review.id
+    if request.method == 'POST':
+        photo.delete()
+        return redirect('edit_review', review_id=review_id)
 
 def signup(request):
     error_message = ''
