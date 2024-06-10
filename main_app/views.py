@@ -153,7 +153,7 @@ def edit_review(request, review_id):
                 print('An error occurred uploading file to S3')
                 print(e)                 
         
-        return redirect('user_profile', user_id=request.user.id)
+        return redirect('edit_review', review_id=review.id)
     return render(request, 'edit_review.html', {'review': review, 'restaurant': restaurant,  'range': range(1, 6)})
 
 @login_required
