@@ -2,7 +2,7 @@ body {
   font-family: 'Merriweather', serif;
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
+  background-color: #FDF0D5;
 }
 
 .site-title {
@@ -217,6 +217,12 @@ h2 {
     text-align: center;
 }
 
+.restaurant-container {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
 /* styles for the review date */
 .restaurant-detail .review .star-rating p {
   font-size: 0.7em;
@@ -286,7 +292,7 @@ main ul li .star-rating p {
   background-color: #ff5722;
 }
 
-/* Add styles for restaurant details */
+/* styles for restaurant details */
 
 .restaurant-detail {
   max-width: 800px;
@@ -329,6 +335,11 @@ main ul li .star-rating p {
 .restaurant-detail .review .user {
   font-weight: bold;
   margin-bottom: 5px;
+}
+
+.restaurant-detail .reviews .review h3 a {
+  color: black;
+  text-decoration: underline; 
 }
 
 .restaurant-detail .review .rating {
@@ -454,7 +465,7 @@ main ul li .star-rating p {
 
 /* Image styles */
 .restaurant-image img {
-  width: 200px; /* Set the width as per your preference */
+  width: 200px;
   height: auto;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -578,7 +589,7 @@ main ul li .star-rating p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 577px 588px;
+  margin-bottom: 20px;
 } 
 
 .profile .review .review-header h3 {
@@ -595,4 +606,190 @@ main ul li .star-rating p {
 .profile .review .review-content {
   font-size: 1.2em;
   color: #666;
+}
+
+/* Styles for Sort By Label */
+label[for="sort_by"] {
+  font-size: 1.2em;
+  color: #333;
+  margin-right: 10px;
+}
+
+/* Styles for Sort By Select */
+#sort_by {
+  padding: 8px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+}
+
+#sort_by option {
+  background-color: #fff;
+  color: #333;
+}
+
+#sort_by:hover,
+#sort_by:focus {
+  border-color: #ff7043;
+}
+
+/* Pagination Styles */
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.pagination .step-links a.page-link {
+  display: inline-block;
+  color: white;
+  background-color: #ff7043;
+  text-decoration: none;
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ff7043;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination .step-links a.page-link:hover {
+  background-color: #ff5722;
+}
+
+.pagination .step-links .current {
+  font-weight: bold;
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+}
+
+@media only screen and (max-width: 600px) {
+  .pagination .step-links a.page-link, .pagination .step-links .current {
+    padding: 5px 8px;
+    margin: 0 3px;
+  }
+}
+
+/* Styles for Pagination Buttons */
+.pagination-button {
+  background-color: #ff7043;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.pagination-button:hover {
+  background-color: #ff5722;
+}
+
+.pagination-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* CSS for Signup Page */
+
+.signup-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.signup-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-form label {
+  margin-bottom: 5px;
+}
+
+.signup-form input[type="text"],
+.signup-form input[type="email"],
+.signup-form input[type="password"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.signup-form button {
+  padding: 10px 20px;
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.signup-form button:hover {
+  background-color: #ff7043;
+}
+
+/* CSS for Login Page */
+
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  margin-bottom: 5px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-form button {
+  padding: 10px 20px;
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #ff7043;
 }
