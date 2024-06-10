@@ -11,4 +11,5 @@ urlpatterns = [
     path('add_favorite/<str:yelp_id>/', views.add_favorite, name='add_favorite'),
     path('remove_favorite/<str:yelp_id>/', views.remove_favorite, name='remove_favorite'),
     path('profile/<int:user_id>/', views.user_profile, name='user_profile'),
+    path('photo/<int:photo_id>/delete/', views.delete_photo, name='delete_photo')
 ]
