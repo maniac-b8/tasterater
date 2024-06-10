@@ -15,42 +15,43 @@
 </form>
 
 {% if results %}
-<h2>{% if is_search %}Results:{% else %}Recommended{% endif %}</h2>
-<ul class="restaurant-list">
-    {% for business in results %}
-    <li>
-        <div class="restaurant-details">
-            <h3><a href="{% url 'restaurant_detail' yelp_id=business.id %}">{{ business.name }}</a></h3>
-            <p>Rating: 
-                {% for i in range %}
-                    <i class="fas fa-star{% if business.rating < i %}-o{% endif %}"></i>
-                {% endfor %}
-                {{ business.rating }}
-            </p>
-            <p>Address: <a href="https://www.google.com/maps/dir/?api=1&destination={{ business.location.address1|urlencode }}" target="_blank">{{ business.location.address1 }}</a></p>
-            <div class="restaurant-info">
-                <div class="restaurant-image">
-                    {% if business.image_url %}
-                    <img src="{{ business.image_url }}" alt="Image of {{ business.name }}">
-                    {% endif %}
-                </div>
-                <div class="restaurant-buttons">
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'add_favorite' business.id %}" class="button">Favorite</a>
-                    <a href="{% url 'add_review' business.id %}" class="button">Add Review</a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </li>
+<div class="restaurant-container">
+  <h2>{% if is_search %}Results:{% else %}Recommended{% endif %}</h2>
+  <ul class="restaurant-list">
+      {% for business in results %}
+      <li>
+          <div class="restaurant-details">
+              <h3><a href="{% url 'restaurant_detail' yelp_id=business.id %}">{{ business.name }}</a></h3>
+              <p>Rating: 
+                  {% for i in range %}
+                      <i class="fas fa-star{% if business.rating < i %}-o{% endif %}"></i>
+                  {% endfor %}
+                  {{ business.rating }}
+              </p>
+              <p>Address: <a href="https://www.google.com/maps/dir/?api=1&destination={{ business.location.address1|urlencode }}" target="_blank">{{ business.location.address1 }}</a></p>
+              <div class="restaurant-info">
+                  <div class="restaurant-image">
+                      {% if business.image_url %}
+                      <img src="{{ business.image_url }}" alt="Image of {{ business.name }}">
+                      {% endif %}
+                  </div>
+                  <div class="restaurant-buttons">
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'add_favorite' business.id %}" class="button">Favorite</a>
+                      <a href="{% url 'add_review' business.id %}" class="button">Add Review</a>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+      </li>
     {% endfor %}
 </ul>
-<!-- add pages -->
+
 <div class="pagination">
   <span class="step-links">
     {% if results.has_previous %}
-      <a href="?term={{ term }}&location={{ location }}&sort_by={{ sort_by }}&page=1">&laquo; first</a>
-      <a href="?term={{ term }}&location={{ location }}&sort_by={{ sort_by }}&page={{ results.previous_page_number }}">previous</a>
+      <a href="?term={{ term }}&location={{ location }}&sort_by={{ sort_by }}&page=1" class="pagination-button">&laquo; first</a>
+      <a href="?term={{ term }}&location={{ location }}&sort_by={{ sort_by }}&page={{ results.previous_page_number }}" class="pagination-button">previous</a>
     {% endif %}
 
     <span class="current">
@@ -58,11 +59,11 @@
     </span>
 
     {% if results.has_next %}
-      <a href="?term={{ term }}&location={{ location }}&sort_by={{ sort_by }}&page={{ results.next_page_number }}">next</a>
-      <a href="?term={{ term }}&location={{ location }}&sort_by={{ sort_by }}&page={{ results.paginator.num_pages }}">last &raquo;</a>
+      <a href="?term={{ term }}&location={{ location }}&sort_by={{ sort_by }}&page={{ results.next_page_number }}" class="pagination-button">next</a>
+      <a href="?term={{ term }}&location={{ location }}&sort_by={{ sort_by }}&page={{ results.paginator.num_pages }}" class="pagination-button">last &raquo;</a>
     {% endif %}
   </span>
 </div>
-<!-- end add pages -->
+
 {% endif %}
 {% endblock %}
