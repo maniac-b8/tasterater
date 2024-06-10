@@ -1,38 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <title>Edit Review</title>
-    <div class="edit-review">
-        <h1>Edit Review</h1>
-        <form method="post"  enctype="multipart/form-data">
-            {% csrf_token %}
-            <label for="text">Review:</label>
-            <textarea id="text" name="text" required>{{ review.text }}</textarea>
-            <label for="rating">Rating:</label>
-            <div class="star-rating">
-                {% for i in range reversed %}
-                <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}"{% if review.rating == i %}checked{% endif %}>
-                <label for="star{{ i }}" title="{{ i }} stars">
-                    <i class="fas fa-star"></i>
-                </label>
-                {% endfor %}
-            </div>
-            <label for="photo">Photo (optional):</label>
-            <input type="file" name="photo-file">
-            <button type="submit">Submit</button>
-        </form>
-    </div>
+<title>Edit Review</title>
+<div class="edit-review">
+    <h1>Edit Review</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="text">Review:</label>
+        <textarea id="text" name="text" required>{{ review.text }}</textarea>
+        <label for="rating">Rating:</label>
+        <div class="star-rating">
+            {% for i in range reversed %}
+            <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}"{% if review.rating == i %}checked{% endif %}>
+            <label for="star{{ i }}" title="{{ i }} stars">
+                <i class="fas fa-star"></i>
+            </label>
+            {% endfor %}
+        </div>
+        <label for="photo">Photo (optional):</label>
+        <input type="file" name="photo-file">
+        <button type="submit">Submit</button>
+    </form>
+</div>
 
-    <div class="exisiting-photos">
-        <h2>Exisiting Photos</h2>
+<div class="existing-photos">
+    <h2>Existing Photos</h2>
+    <div class="photo-gallery">
         {% for photo in review.photo_set.all %}
         <div class="photo">
             <img src="{{ photo.url }}" alt="review photo" class="limited-size-img">
-            <form method="post" action="{% url 'delete_photo' photo.id %}">
+            <form method="post" action="{% url 'delete_photo' photo.id %}" class="delete-photo-form">
                 {% csrf_token %}
-                <button type="submit">Delete</button>
+                <button type="submit" class="icon-button">
+                    <ion-icon name="close-circle-outline"></ion-icon>
+                </button>
             </form>
         </div>
         {% endfor %}
     </div>
-    {% endblock %}
+</div>
+{% endblock %}
