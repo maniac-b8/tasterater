@@ -1,23 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <title>Add Review</title>
-    <div class="add-review">
-        <h1>Add review for {{ restaurant.name }}</h1>
-        <form method="post" action="{% url 'add_review' restaurant.yelp_id %}">
-            {% csrf_token %}
-            <label for="text">Review:</label>
-            <textarea id="text" name="text" required></textarea>
-            <label for="rating">Rating:</label>
-            <div class="star-rating">
-                {% for i in range reversed %}
-                <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}">
-                <label for="star{{ i }}" title="{{ i }} stars">
-                    <i class="fas fa-star"></i>
-                </label>
-                {% endfor %}
-            </div>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
-    {% endblock %}
+<title>Add Review</title>
+<div class="add-review">
+    <h1>Add review for {{ restaurant.name }}</h1>
+    <form method="post" action="{% url 'add_review' restaurant.yelp_id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="text">Review:</label>
+        <textarea id="text" name="text" required></textarea>
+        <label for="rating">Rating:</label>
+        <div class="star-rating">
+            {% for i in range reversed %}
+            <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}">
+            <label for="star{{ i }}" title="{{ i }} stars">
+                <i class="fas fa-star"></i>
+            </label>
+            {% endfor %}
+        </div>
+        <label for="photo">Photo (optional):</label>
+        <input type="file" name="photo-file">
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}

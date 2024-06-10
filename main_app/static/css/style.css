@@ -16,6 +16,13 @@ button, input, select, textarea, a, .button, .inline-form {
   font-family: 'Merriweather', serif;
 }
 
+.limited-size-img {
+  max-width: 250px;  
+  max-height: 250px; 
+  width: auto;
+  height: auto;
+}
+
 .nav-wrapper {
   background-image: url('../images/plPV7lY.jpeg');
   background-size: cover;
