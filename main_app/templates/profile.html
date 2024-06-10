@@ -35,6 +35,13 @@
                 </div>
             </p>
             <p>Reviewed on: {{ review.created_at|date:"F j, Y g:i a" }}</p>
+            {% if review.photo_set.exists %}
+            <div class="review-photos">
+                {% for photo in review.photo_set.all %}
+                <img src="{{ photo.url }}" alt="Review photo" class="limited-size-img">
+                {% endfor %}
+            </div>
+            {% endif %}
             {% if user == review.user %}
             <a href="{% url 'edit_review' review.id %}"><button class="button">Edit Review</button></a>
             {% endif %}
