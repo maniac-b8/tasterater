@@ -4,7 +4,7 @@
     <title>Edit Review</title>
     <div class="edit-review">
         <h1>Edit Review</h1>
-        <form method="post">
+        <form method="post"  enctype="multipart/form-data">
             {% csrf_token %}
             <label for="text">Review:</label>
             <textarea id="text" name="text" required>{{ review.text }}</textarea>
