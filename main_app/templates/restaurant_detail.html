@@ -26,9 +26,10 @@
                     {% for i in range %}
                         <i class="fas fa-star{% if review.rating < i %}-o{% endif %}"></i>
                     {% endfor %}
-                    {{ review.rating }}
+                    ({{ review.rating }})
                 </div>
             </p>
+            <p>{{ review.text }}</p>
             {% for photo in review.photo_set.all %}
             <img src="{{ photo.url }}" alt="Review Photo" class="limited-size-img">
     {% empty %}

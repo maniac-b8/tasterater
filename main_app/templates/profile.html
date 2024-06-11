@@ -29,10 +29,12 @@
             <p>Rating:
                 <div class="star-rating">
                     {% for i in range reversed %}
-                    <i class="fas fa-star{% if review.rating < i %}-o{% endif %}"></i>
+                        {% if review.rating >= i %}
+                            <label for="star{{ i }}" style="color: #ffca08;"><i class="fas fa-star"></i></label>
+                        {% endif %}
                     {% endfor %}
                     ({{ review.rating }})
-                </div>
+                </div>                
             </p>
             <p>Reviewed on: {{ review.created_at|date:"F j, Y g:i a" }}</p>
             {% if review.photo_set.exists %}
