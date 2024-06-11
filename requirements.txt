@@ -11,7 +11,7 @@ django-on-heroku==1.1.2
 gunicorn==22.0.0
 idna==3.7
 jmespath==1.0.1
-libxml2-python>=2.12.6,<3.0.0
+libxml2-python>=2.12.6
 packaging==24.1
 pip==24.0
 psycopg2-binary==2.9.9
