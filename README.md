@@ -20,6 +20,8 @@ Welcome to Taste Rater, your ultimate guide to discovering the best dining exper
 * [![Neon][Neon.com]][Neon-url]
 * [![VSCode][VSCode.com]][VSCode-url]
 * [![Heroku][Heroku.com]][Heroku-url]
+* [![Amazon S3][AmazonS3.com]][AmazonS3-url]
+* [![Yelp API][YelpAPI.com]][YelpAPI-url]
 
 ### Getting Started
 
@@ -49,3 +51,7 @@ Welcome to Taste Rater, your ultimate guide to discovering the best dining exper
 [Heroku-url]: https://www.heroku.com/
 [Neon.com]: https://img.shields.io/badge/Neon-0E1128?style=for-the-badge&logo=neon&logoColor=white
 [Neon-url]: https://neon.tech/
+[AmazonS3.com]: https://img.shields.io/badge/Amazon_S3-569A31?style=for-the-badge&logo=amazon&logoColor=white
+[AmazonS3-url]: https://aws.amazon.com/s3/
+[YelpAPI.com]: https://img.shields.io/badge/Yelp_API-D32323?style=for-the-badge&logo=yelp&logoColor=white
+[YelpAPI-url]: https://www.yelp.com/developers/documentation/v3

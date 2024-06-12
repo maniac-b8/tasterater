@@ -10,6 +10,8 @@ body {
   font-size: 3em;
   font-weight: bold;
   color: white;
+  display: flex;
+  margin-bottom: 20px;
 }
 
 button, input, select, textarea, a, .button, .inline-form {
@@ -56,10 +58,6 @@ button, input, select, textarea, a, .button, .inline-form {
   text-align: center;
 }
 
-.nav-wrapper ul li a.button:hover, .nav-wrapper ul li .button:hover {
-  background-color: #ff5722;
-}
-
 .nav-wrapper ul li a.button {
   background-color: white;
   color: #ff7043;
@@ -68,8 +66,8 @@ button, input, select, textarea, a, .button, .inline-form {
   margin-top: 10px;
 }
 
-.nav-wrapper ul li a.button:hover {
-  background-color: #ff8b3d;
+.nav-wrapper ul li .button:hover {
+  background-color: #ff7043;
   color: white;
 }
 
@@ -891,6 +889,7 @@ label[for="sort_by"] {
   font-size: 24px;
   color: red; /* Change color as needed */
 }
+
 
 /* Responsive styles */
 @media (max-width: 1024px) {
