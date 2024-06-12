@@ -31,9 +31,8 @@ def home(request):
         results = search_businesses(location=location)
         businesses = sorted(results.get('businesses', []), key=lambda x: x.get('rating', 0), reverse=True)[:10]
 
-    # split pages
     page = request.GET.get('page', 1)
-    paginator = Paginator(businesses, 10)  # show 10 businesses per page
+    paginator = Paginator(businesses, 10)
 
     try:
         businesses = paginator.page(page)
