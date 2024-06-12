@@ -24,7 +24,7 @@ button, input, select, textarea, a, .button, .inline-form {
 }
 
 .nav-wrapper {
-  background-image: url('../images/plPV7lY.jpeg');
+  background-image: url('https://www.shutterstock.com/image-photo/healthy-breakfast-ingredients-food-frame-260nw-730734214.jpg');
   background-size: cover;
   background-position: center;
   display: flex;
@@ -50,8 +50,8 @@ button, input, select, textarea, a, .button, .inline-form {
 }
 
 .nav-wrapper ul li a.button, .nav-wrapper ul li .button {
-  background-color: #ff7043;
-  color: white;
+  background-color: white;
+  color: #ff7043;
   border: none;
   text-align: center;
 }
@@ -139,6 +139,8 @@ button, input, select, textarea, a, .button, .inline-form {
     padding-right: 10px;
   }
 }
+
+/* Home page styles */
 
 h1 {
     font-size: 2.5em;
@@ -228,15 +230,18 @@ h2 {
   max-width: 800px;
 }
 
+/* styles for the review date */
 .restaurant-detail .review .star-rating p {
   font-size: 0.7em;
   color: #666;
 }
 
+/* size of the review date on the home page */
 main ul li .star-rating p {
   font-size: 0.7em;
 }
 
+/* Add Review and Edit Review Styles */
 .add-review, .edit-review {
   max-width: 600px;
   margin: 20px auto;
@@ -294,12 +299,14 @@ main ul li .star-rating p {
   background-color: #ff5722;
 }
 
+/* Center the form and photo gallery */
 .edit-review, .existing-photos {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
 
+/* Center the images and ensure no overlap with footer */
 .photo-gallery {
   display: flex;
   flex-wrap: wrap;
@@ -308,6 +315,7 @@ main ul li .star-rating p {
   margin-bottom: 40px;
 }
 
+/* Style individual photos and form */
 .photo {
   position: relative;
   display: flex;
@@ -321,6 +329,7 @@ main ul li .star-rating p {
   border-radius: 5px;
 }
 
+/* Position delete button at the upper right corner */
 .delete-photo-form {
   position: absolute;
   top: 10px;
@@ -337,13 +346,14 @@ main ul li .star-rating p {
 .icon-button ion-icon {
   font-size: 24px;
   color: red;
-  transition: color 0s; 
+  transition: color 0s; /* No transition */
 }
 
 .icon-button:hover ion-icon {
-  color: white; 
+  color: white; /* Keep the color red on hover */
 }
 
+/* Ensure footer does not overlap with content */
 footer {
   position: relative;
   margin-top: 40px;
@@ -351,6 +361,8 @@ footer {
   text-align: center;
   width: 100%;
 }
+
+/* styles for restaurant details */
 
 .restaurant-detail {
   max-width: 800px;
@@ -445,6 +457,8 @@ footer {
   color: #fcad03;
 }
 
+/* Review Section */
+
 .review-list {
   margin-top: 20px;
 }
@@ -480,6 +494,8 @@ footer {
   color: #666;
 }
 
+/* Back Button */
+
 .back-button {
   margin-top: 20px;
 }
@@ -496,6 +512,7 @@ footer {
   background-color: #ff5722;
 }
 
+/* Buttons */
 .button {
   display: inline-block;
   background-color: #ff7043;
@@ -516,6 +533,7 @@ footer {
   background-color: #e64a19;
 }
 
+/* Image styles */
 .restaurant-image img {
   width: 200px;
   height: auto;
@@ -553,8 +571,8 @@ footer {
 }
 
 .rating-value {
-  color: yellow;
-  margin-left: 5px; 
+  color: yellow; /* Ensure the rating value is also yellow */
+  margin-left: 5px; /* Optional: add space between stars and rating number */
 }
 
 .star-rating input {
@@ -570,6 +588,7 @@ footer {
   color: #ffca08;
 }
 
+/* Profile Page Styles */
 .profile {
   max-width: 800px;
   margin: 20px auto;
@@ -670,13 +689,14 @@ footer {
   color: #666;
 }
 
-
+/* Styles for Sort By Label */
 label[for="sort_by"] {
   font-size: 1.2em;
   color: #333;
   margin-right: 10px;
 }
 
+/* Styles for Sort By Select */
 #sort_by {
   padding: 8px;
   font-size: 1em;
@@ -696,6 +716,7 @@ label[for="sort_by"] {
   border-color: #ff7043;
 }
 
+/* Pagination Styles */
 .pagination {
   text-align: center;
   margin-top: 20px;
@@ -734,6 +755,11 @@ label[for="sort_by"] {
   }
 }
 
+/* Styles for Pagination Buttons */
+.pagination{
+  padding: 10px;
+}
+
 .pagination-button {
   background-color: #ff7043;
   color: white;
@@ -753,6 +779,8 @@ label[for="sort_by"] {
   background-color: #ccc;
   cursor: not-allowed;
 }
+
+/* CSS for Signup Page */
 
 .signup-container {
   max-width: 400px;
@@ -803,6 +831,8 @@ label[for="sort_by"] {
 .signup-form button:hover {
   background-color: #ff7043;
 }
+
+/* CSS for Login Page */
 
 .login-container {
   max-width: 400px;
@@ -859,5 +889,69 @@ label[for="sort_by"] {
 
 .icon-button ion-icon {
   font-size: 24px;
-  color: red; 
+  color: red; /* Change color as needed */
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+    .site-title {
+        font-size: 1.25rem;
+    }
+
+    .button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .container {
+        padding: 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .page-footer {
+      padding: 0.8rem;
+      font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+    .site-title {
+        font-size: 1rem;
+    }
+
+    .button {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+    }
+
+    .container {
+        padding: 0.6rem;
+        font-size: 0.6rem;
+    }
+
+    .page-footer {
+      padding: 0.6rem;
+      font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+    .site-title {
+        font-size: 0.75rem;
+    }
+
+    .button {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.7rem;
+    }
+
+    .container {
+        padding: 0.4rem;
+        font-size: 0.4rem;
+    }
+
+    .page-footer {
+      padding: 0.4rem;
+      font-size: 0.4rem;
+  }
 }
