@@ -5,12 +5,17 @@ Welcome to Taste Rater, your ultimate guide to discovering the best dining exper
 ## List of Features and Screenshots
 
 * Open your App to restaurants recommended near you!
+![alt text](public/images/homepagelaptop.png)
 * Easily find restaurants on search bar based on location, ratings, and name.
 * Save your top picks to your personal favorites list for quick access.
+![alt text](public/images/profilepage.png)
 * See the ratings of each restaurants.
+![alt text](public/images/detailpage.png)
 * Share your dining experiences with the community by writing a review.
+![alt text](public/images/addreview.png)
 * Enhance your reviews with photos of your meals, the ambiance, and more to help others get a visual taste of the experience!
-
+* Responsive styling
+![alt text](public/images/iphone.jpg)
 ### Technologies Used
 
 * [![HTML][HTML.com]][HTML-url]
@@ -28,6 +33,8 @@ Welcome to Taste Rater, your ultimate guide to discovering the best dining exper
 [Click to view Project Planning](https://trello.com/b/miGnsDQQ/tasterater)
 
 [Click to view our group's Pitch Deck](https://docs.google.com/presentation/d/1eEphkXro5IZWPftlUpLXv1UpNrm3vOCe-oLGlDmME-c/edit#slide=id.g2e0ec810fb9_3_0)
+
+[Click to browse to Taste Rater](https://tasterater-51d5ecc29cf9.herokuapp.com/)
 
 ### Next Steps
 
