@@ -5,17 +5,28 @@ Welcome to Taste Rater, your ultimate guide to discovering the best dining exper
 ## List of Features and Screenshots
 
 * Open your App to restaurants recommended near you!
+
 ![alt text](/main_app/static/images/homepagelaptop.png)
+
 * Easily find restaurants on search bar based on location, ratings, and name.
 * Save your top picks to your personal favorites list for quick access.
+
 ![alt text](/main_app/static/images/addreview.png)
+
 * See the ratings of each restaurants.
+
 ![alt text](/main_app/static/images/detailpage.png)
+
 * Share your dining experiences with the community by writing a review.
+
 ![alt text](/main_app/static/images/addreview.png)
+
 * Enhance your reviews with photos of your meals, the ambiance, and more to help others get a visual taste of the experience!
 * Responsive styling
-![alt text](/main_app/static/images/iphone.jpg)
+
+![alt text](/main_app/static/images/iphone.png)
+
+
 ### Technologies Used
 
 * [![HTML][HTML.com]][HTML-url]
