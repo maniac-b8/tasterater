@@ -27,7 +27,6 @@ class Review(models.Model):
    rating = models.PositiveSmallIntegerField()
    created_at = models.DateTimeField(default=timezone.now)
    
-   
    class Meta:
        unique_together = ('user', 'restaurant')
        
