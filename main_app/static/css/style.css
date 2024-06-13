@@ -890,6 +890,9 @@ label[for="sort_by"] {
   color: red; /* Change color as needed */
 }
 
+#id_password1 {
+  width: 320px;
+}
 
 /* Responsive styles */
 @media (max-width: 1024px) {
